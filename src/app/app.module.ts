@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HeadComponent } from './head/head.component';
 import { ChartCircleComponent } from './chart-circle/chart-circle.component';
+import { DashComponent } from './dash/dash.component';
+import { AppsComponent } from './apps/apps.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HeadComponent,
-    ChartCircleComponent
+    ChartCircleComponent,
+    DashComponent,
+    AppsComponent
   ],
   imports: [
     BrowserModule,

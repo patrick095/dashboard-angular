@@ -7,6 +7,9 @@
     align-items: center;
     color: #fff;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 ul {
     list-style-type: none;
@@ -22,7 +25,7 @@ li {
     margin: 5px 0;
     cursor: pointer;
 }
-li:hover, ul .selected {
+li:hover, ul .active-link {
     background-color: #0000002f;
     border-left: 3px solid #2989e2;
     color: #2989e2;
