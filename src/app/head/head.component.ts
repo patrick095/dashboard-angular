@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-head',
@@ -8,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class HeadComponent implements OnInit {
   daysOn = 1
   osVersion = 'Ubuntu 20.10'
-  constructor() { }
+  CpuUsage = 0
+  MemUsage = 0
+  DiskUsage = 0
+  constructor(
+    private ApiService: ApiService
+  ) { }
 
-  ngOnInit(): void {
+  consoleLog(data: any){ return console.log(data)}
   
+  async ngOnInit() {
+    //fake api
+    setInterval(async ()=> {
+      let {cpu, disk,mem} = await this.ApiService.getHardwareStatus()
+      this.CpuUsage = parseFloat(cpu.toFixed(1))
+      this.DiskUsage = parseFloat(disk.toFixed(1))
+      this.MemUsage = parseFloat(mem.toFixed(1))
+    }, 5000)
   }
 
 }

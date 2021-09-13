@@ -7,19 +7,18 @@
     <div class="chart">
         <app-chart-circle
         [label]="'CPU'"
-        [percent]=10.1
+        [percent]="CpuUsage"
         [id]=1
         ></app-chart-circle>
         <app-chart-circle
         [label]="'RAM'"
-        [percent]=40.5
+        [percent]="MemUsage"
         [id]=2
         ></app-chart-circle>
         <app-chart-circle
         [label]="'DISK'"
-        [percent]=70
-        [id]=2
+        [percent]="DiskUsage"
+        [id]=3
         ></app-chart-circle>
     </div>
 </div>
-

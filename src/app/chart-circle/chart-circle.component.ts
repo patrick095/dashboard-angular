@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import ApexCharts from 'apexcharts';
 
 @Component({
@@ -12,7 +12,7 @@ export class ChartCircleComponent implements OnInit {
   @Input('id') id = 0;
   constructor() { }
 
-  ngOnInit(): void {
+  async createChart(){
     var options = {
       series: [this.percent],
       colors:["#65db65"],
@@ -22,7 +22,8 @@ export class ChartCircleComponent implements OnInit {
         type: "radialBar",
         toolbar: {
           show: false
-        }
+        },
+        id: `${this.id}`
       },
       plotOptions: {
         radialBar: {
@@ -85,11 +86,31 @@ export class ChartCircleComponent implements OnInit {
       },
       labels: [this.label]
       }
+    let chart = new Promise<ApexCharts>(resolve => {
+      setTimeout(()=>{
+        const element = document.getElementById(`id${this.id}`)
+        var chart = new ApexCharts(element, options);
+        resolve(chart)
+      }, 500)
+    })
+    return chart
+  }
+
+  async ngOnChanges(changes: SimpleChanges){
+    let chart = await this.createChart()
+
+    if(changes.percent.firstChange) {
+      chart.render()
+    }
+    else {
+      this.percent = changes.percent.currentValue
+      ApexCharts.exec(`${this.id}`, 'updateSeries',[this.percent], true)
+    }
+  }
+
+  ngOnInit(): void {
     
     
-    var chart = new ApexCharts(document.querySelector(".chart"), options);
-    
-    chart.render();
 
     // adicionar cursor pointer para os charts
     // let charts = Array.from(document.querySelectorAll('.apexcharts-canvas'))
