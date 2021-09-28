@@ -1,28 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HeadComponent } from './head/head.component';
-import { ChartCircleComponent } from './chart-circle/chart-circle.component';
-import { DashComponent } from './dash/dash.component';
-import { AppsComponent } from './apps/apps.component';
+import { ComponentsModule } from './core/shared/modules/components.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    HeadComponent,
-    ChartCircleComponent,
-    DashComponent,
-    AppsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, ComponentsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
