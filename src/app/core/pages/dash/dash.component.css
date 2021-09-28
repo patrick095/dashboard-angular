@@ -1,0 +1,30 @@
+.dash__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "cheio cheio"
+    "meio1 meio2"
+    ;
+    gap: 50px;
+}
+.dash__grid__item {
+    width: 100%;
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.overview {
+    grid-area: cheio;
+}
+
+.apps {
+    grid-area: meio1;
+}
+
+.databases {
+    grid-area: meio2;
+}
