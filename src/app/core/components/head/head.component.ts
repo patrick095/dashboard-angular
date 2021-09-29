@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../features/services/api.service';
 
 @Component({
   selector: 'app-head',
@@ -7,24 +7,20 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./head.component.css'],
 })
 export class HeadComponent implements OnInit {
-  daysOn = 1;
-  osVersion = 'Ubuntu 20.10';
-  CpuUsage = 0;
-  MemUsage = 0;
-  DiskUsage = 0;
+  public daysOn = 1;
+  public osVersion = 'Ubuntu 20.10';
+  public CpuUsage = 0;
+  public MemUsage = 0;
+  public DiskUsage = 0;
+
   constructor(private ApiService: ApiService) {}
 
-  consoleLog(data: any) {
-    return console.log(data);
-  }
-
-  async ngOnInit() {
-    //fake api
+  ngOnInit(): void {
     setInterval(async () => {
-      let { cpu, disk, mem } = await this.ApiService.getHardwareStatus();
-      this.CpuUsage = parseFloat(cpu.toFixed(1));
-      this.DiskUsage = parseFloat(disk.toFixed(1));
-      this.MemUsage = parseFloat(mem.toFixed(1));
+      const { cpu, disk, mem } = await this.ApiService.getHardwareStatus();
+      this.CpuUsage = cpu;
+      this.DiskUsage = disk;
+      this.MemUsage = mem;
     }, 5000);
   }
 }

@@ -7,13 +7,13 @@ import ApexCharts from 'apexcharts';
   styleUrls: ['./chart-circle.component.css'],
 })
 export class ChartCircleComponent implements OnInit {
-  @Input('label') label = '';
-  @Input('percent') percent = 0;
-  @Input('id') id = 0;
-  constructor() {}
+  private chart: ApexCharts | undefined;
+  @Input('label') label: string | undefined;
+  @Input('percent') percent: number | undefined;
+  @Input('id') id: number | undefined;
 
-  async createChart() {
-    var options = {
+  async createChart(): Promise<ApexCharts> {
+    const options = {
       series: [this.percent],
       colors: ['#65db65'],
       chart: {
@@ -86,27 +86,26 @@ export class ChartCircleComponent implements OnInit {
       },
       labels: [this.label],
     };
-    let chart = new Promise<ApexCharts>((resolve) => {
+    const chart = new Promise<ApexCharts>((resolve) => {
       setTimeout(() => {
         const element = document.getElementById(`id${this.id}`);
-        var chart = new ApexCharts(element, options);
+        const chart = new ApexCharts(element, options);
         resolve(chart);
       }, 500);
     });
     return chart;
   }
 
-  async ngOnChanges(changes: SimpleChanges) {
-    let chart = await this.createChart();
+  async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    this.chart = await this.createChart();
 
     if (changes.percent.firstChange) {
-      chart.render();
+      this.chart.render();
     } else {
       this.percent = changes.percent.currentValue;
       ApexCharts.exec(`${this.id}`, 'updateSeries', [this.percent], true);
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
